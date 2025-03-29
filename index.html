@@ -1,0 +1,21 @@
+<script src="https://unpkg.com/aws-amplify@5.0.4/dist/aws-amplify.min.js"></script>
+<script>
+  Amplify.configure({
+    Auth: {
+      region: 'us-east-1',
+      userPoolId: 'us-east-1_XXXXXXX',
+      userPoolWebClientId: 'XXXXXXXXXXXXXXXXXXXX',
+    }
+  });
+
+  // Login
+  Amplify.Auth.signIn('miusuario', 'miclave123')
+    .then(user => {
+      return user.getSignInUserSession().getIdToken().getJwtToken();
+    })
+    .then(token => {
+      console.log("Token JWT:", token);
+      // Aquí puedes usar este token para invocar una Lambda directamente
+    })
+    .catch(console.error);
+</script>
